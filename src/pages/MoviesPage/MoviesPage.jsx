@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchByFilm } from "../../API";
-import { useSearchParams, Link, useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
@@ -10,7 +10,6 @@ const MoviesPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [films, setFilms] = useState([]);
   const [searchFilms, setSearchFilms] = useSearchParams();
-  const location = useLocation();
 
   useEffect(() => {
     const userFilms = searchFilms.get("query");
@@ -39,9 +38,6 @@ const MoviesPage = () => {
       {error && <p>{error}</p>}
       {isLoading && <Loader />}
       {!isLoading && films.length > 0 && <MovieList films={films} />}
-      <Link to={`/movies/${films.id}`} state={location}>
-        {films.title}
-      </Link>
     </>
   );
 };
